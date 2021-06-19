@@ -1,30 +1,36 @@
-import shutil
-from typing import Optional, List
-import json
-import uvicorn
 import base64
-import login.users
+import shutil
+from typing import Optional
+import json
+from pydantic import BaseModel
+from sqlalchemy import and_
+from starlette.middleware.cors import CORSMiddleware
+
+from shop import notes
 import shop
-import databases
-import sqlalchemy
-from fastapi import FastAPI, Request, Form
-from product import router
-from fastapi_users import FastAPIUsers, models
-from fastapi_users.authentication import JWTAuthentication
-from fastapi_users.db import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
-from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
+from fastapi import Request, Depends, Body
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse
 from fastapi import FastAPI, File, UploadFile
-from shop import router
 import product
 from login import users
 from login.users import database
-from views import check_token
+from services import check_token
 import cart
+from cart import cart as cart_db
+from shop import notes
 
 app = FastAPI()
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -53,53 +59,86 @@ async def read_item(request: Request):
 
 @app.get("/")
 async def index(request: Request):
-    glasses = 'select * from glasses limit 3'
+    token_status = check_token.get_token(request)
+    flag, user_id, admin = False, None, False
+    if token_status['valid']:
+        flag = True
+        user_id = token_status['user_id']
+    is_admin = 'select is_superuser from user where id=:user_id'
+    exce_is_admin = await database.fetch_one(query=is_admin, values={'user_id': user_id})
+    if exce_is_admin is not None and exce_is_admin[0]:
+        admin = True
+    glasses = 'select * from glasses limit 6'
     glasses = await database.fetch_all(query=glasses)
-    return templates.TemplateResponse("index.html", {"request": request, 'glasses': glasses})
+
+    return templates.TemplateResponse("index.html",
+                                      {"request": request, 'glasses': glasses, 'flag': flag, 'admin': admin})
 
 
 @app.get('/upload/')
 async def upload(request: Request):
-    return templates.TemplateResponse("upload.html", {"request": request})
+    token_status = check_token.get_token(request)
+    flag, user_id, admin = False, None, False
+    if token_status['valid']:
+        flag = True
+        user_id = token_status['user_id']
+    return templates.TemplateResponse("upload.html", {"request": request, 'flag': flag})
+
+
+class Face(BaseModel):
+    image: Optional[str]
 
 
 @app.post("/upload/")
-async def create_upload_file(request: Request, file: UploadFile = File(None), image: Optional[str] = None):
-    # form = await request.body()
-    # form1 = json.loads(form.decode('utf-8'))
-    # base = form1['image'].replace("data:image/png;base64,", "")
-    # base = base64.urlsafe_b64decode(base)
-    #
-    # f = open("temp.png", "wb")
-    # f.write(base)
-    # f.close()
+async def create_upload_file(request: Request, image: Optional[str] = Body(None, embed=True),
+                             file: UploadFile = File(None)):
+    token_status = check_token.get_token(request)
+    flag = False
+    if token_status['valid']:
+        flag = True
+    if file != None:
+        with open("destination.png", "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+    else:
 
-    # with open("imageToSave.png", "wb") as fh:
-    #     fh.write(base64.b64decode(form1['image']))
+        form = await request.body()
+        form1 = json.loads(form.decode('utf-8'))
+        base = form1['image'].replace("data:image/png;base64,", "")
+        base = base64.urlsafe_b64decode(base)
 
-    # if image is None:
-    with open("destination.png", "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+        f = open("temp.png", "wb")
+        f.write(base)
+        f.close()
+    # if image is not None:
+
     # else:
-    #     with open("imageToSave.png", "wb") as fh:
-    #         fh.write(base64.decodebytes(image))
 
     return 'success'
 
 
-@app.post('/check/')
-async def test(request: Request):
-    validate_token = check_token.validate_token(request.headers)
-    print(validate_token)
-    return validate_token
+@app.get('/delete-from-cart/{item_id}')
+async def delete_item(request: Request, item_id: str):
+    token_status = check_token.get_token(request)
+    flag, user_id, admin = False, None, False
+    if token_status['valid']:
+        flag = True
+        user_id = token_status['user_id']
+    print(item_id)
+    get_id = notes.select().where(notes.c.name == item_id)
+    excec_get_id = await database.fetch_one(get_id)
+    print(excec_get_id)
+    remove_item = cart_db.delete().where(and_(cart_db.c.user_id == user_id, cart_db.c.glasses_id == excec_get_id[0]))
+    excex_remove_item = await database.execute(remove_item)
+    return 'success'
 
 
-@app.get('/a/')
-async def test(request: Request):
-    # valid_token = check_token.validate_token(request.headers)
-    # print(valid_token)
-    return templates.TemplateResponse("a.html", {"request": request})
-
-
+@app.get('/about-us/')
+async def about_us(request: Request):
+    token_status = check_token.get_token(request)
+    flag, user_id, admin = False, None, False
+    if token_status['valid']:
+        flag = True
+        user_id = token_status['user_id']
+    return templates.TemplateResponse('about-us.html', {"request": request, 'flag': flag})
 
 

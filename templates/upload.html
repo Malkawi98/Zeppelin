@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+
+.redirect{display:none; justify-content: space-around;margin-top: 30px;}
+.forward {
+    padding-right: 10px;
+    padding-left:10px;
+    align-self: center;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  height: 50px;
+  border-radius: 10px 5px 5px 10px;
+  background: #007bff;
+  font: 20px stantia, sans-serif;
+  color: white;
+  line-height: 50px;
+  text-align: start;
+  text-decoration: none;
+}
+
+.forward:before,
+.forward:after {
+  content: '';
+  position: absolute;
+  right: -15px;
+  width: 32px;
+  height: 15px;
+  border-radius: 5px;
+  background: #007bff;
+}
+.forward:before {
+  top: 9px;
+  -webkit-transform: rotate(65deg);
+  -ms-transform: rotate(65deg);
+  transform: rotate(65deg);
+}
+.forward:after {
+  bottom: 9px;
+  -webkit-transform: rotate(-65deg);
+  -ms-transform: rotate(-65deg);
+  transform: rotate(-65deg);
+}
+
+        #video {
+            border: 1px solid black;
+            width: 320px;
+            height: 240px;
+        }
+
+        #photo {
+            border: 1px solid black;
+            width: 320px;
+            height: 240px;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        .camera {
+            width: 340px;
+            display: inline-block;
+        }
+
+        .output {
+            width: 340px;
+            display: inline-block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        #startbutton {
+            display: block;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            bottom: 36px;
+            padding: 5px;
+            background-color: #6a67ce;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 1.0);
+            cursor: pointer;
+        }
+
+        .contentarea {
+            font-size: 16px;
+            font-family: Arial;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    </head>
+
+    <body>
+
+    <main class="page login-page">
+
+
+        <section class="clean-block clean-form dark">
+            <div class="container">
+
+                <div class="block-heading">
+                    <h1 class="text-left">Take a Photo</h1>
+
+
+                </div>
+                <div class="container d-flex flex-row justify-content-center">
+                    <input class="btn btn-primary border rounded-pill photo-input" onchange="disableSnap()"
+                           autocomplete="off" type="file" name='file' style="padding: 15px ; "
+                           value="Upload Image" src='' accept="image/*">
+                    <button class="btn btn-primary border rounded-pill snap-button" type="button"
+                            style="margin-right: 20px;margin-left: 20px;padding: 15px ;" onclick="hide()">Snap
+                    </button>
+                    <input class="btn btn-primary border rounded-pill" type="submit" style="padding: 15px ;"
+                           value="Submit" onclick="checkSnap()">
+
+                </div>
+
+                <p class="h2 text-center result" style="padding-top: 10px;"></p>
+                <div class='redirect'>
+                    <a class=" forward" href="http://127.0.0.1:8000/shop/">Don't Filter</a>
+                    <a class="forward face-link" href="">Filter Using Your Face Shape!</a>
+
+                </div>
+
+                <div class="hide">
+
+                    <body>
+                    <div class="contentarea">
+                        <div class="camera">
+                            <video id="video">Video stream not available.</video>
+                        </div>
+                        <div>
+                            <button id="startbutton">Take photo</button>
+                        </div>
+                        <canvas id="canvas"></canvas>
+                        <div class="output">
+                            <img id="photo" alt="The screen capture will appear in this box.">
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    /* JS comes here */
+                    (function () {
+
+                        var width = 320; // We will scale the photo width to this
+                        var height = 0; // This will be computed based on the input stream
+
+                        var streaming = false;
+
+                        var video = null;
+                        var canvas = null;
+                        var photo = null;
+                        var startbutton = null;
+
+                        function startup() {
+                            video = document.getElementById('video');
+                            canvas = document.getElementById('canvas');
+                            photo = document.getElementById('photo');
+                            startbutton = document.getElementById('startbutton');
+
+                            navigator.mediaDevices.getUserMedia({
+                                video: true,
+                                audio: false
+                            })
+                                .then(function (stream) {
+                                    video.srcObject = stream;
+                                    video.play();
+                                })
+                                .catch(function (err) {
+                                    console.log("An error occurred: " + err);
+                                });
+
+                            video.addEventListener('canplay', function (ev) {
+                                if (!streaming) {
+                                    height = video.videoHeight / (video.videoWidth / width);
+
+                                    if (isNaN(height)) {
+                                        height = width / (4 / 3);
+                                    }
+
+                                    video.setAttribute('width', width);
+                                    video.setAttribute('height', height);
+                                    canvas.setAttribute('width', width);
+                                    canvas.setAttribute('height', height);
+                                    streaming = true;
+                                }
+                            }, false);
+
+                            startbutton.addEventListener('click', function (ev) {
+                                takepicture();
+                                ev.preventDefault();
+                            }, false);
+
+                            clearphoto();
+                        }
+
+
+                        function clearphoto() {
+                            var context = canvas.getContext('2d');
+                            context.fillStyle = "#AAA";
+                            context.fillRect(0, 0, canvas.width, canvas.height);
+
+                            var data = canvas.toDataURL('image/png');
+                            photo.setAttribute('src', data);
+
+                        }
+
+                        let imageDate = null;
+
+                        function takepicture() {
+                            var context = canvas.getContext('2d');
+                            if (width && height) {
+                                canvas.width = width;
+                                canvas.height = height;
+                                context.drawImage(video, 0, 0, width, height);
+
+                                var data = canvas.toDataURL('image/png');
+                                imageData = data;
+                                photo.setAttribute('src', data);
+                                photo.setAttribute('class', 'live')
+                            } else {
+                                clearphoto();
+                            }
+                        }
+
+                        window.addEventListener('load', startup, false);
+                    })();
+                </script>
+                <p></p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        {#document.querySelector('.photo-input').addEventListener('change', check_input)#}
+        let check_input = () => {
+            photoInput = document.querySelector('.photo-input').value.length
+            if (photoInput !== 0)
+                console.log('there\'s an image')
+        }
+
+        function disableSnap() {
+            document.querySelector(".snap-button").disabled = true;
+        }
+
+        function disableUpload() {
+            document.querySelector(".photo-input").disabled = true;
+
+        }
+
+        function hide() {
+            var x = document.querySelector(".hide");
+            if (x.style.display !== "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        function checkSnap() {
+            let imageBase64 = null;
+            try {
+                imageBase64 = document.querySelector(".live").src;
+            } catch (err) {
+                imageBase64 = imageBase64 ? imageBase64 : null
+            }
+            let photoInput = document.querySelector(".photo-input");
+
+            const options = {
+                method: 'POST',
+                mode: 'cors',
+
+            }
+            if (imageBase64 !== null) {
+                {
+                    options.body = JSON.stringify({'image': imageBase64})
+
+                }
+            } else {
+                let data = new FormData()
+                data.append('file', photoInput.files[0])
+                options['body'] = data
+            }
+
+            fetch('http://127.0.0.1:4000/upload/', options).then(data => data.json())
+                .then(data => {
+                    document.querySelector('.result').innerHTML = `Your Face Shape Is ${data}`;
+                    const faceLink = document.querySelector( '.face-link' );
+                    faceLink.href = `http://127.0.0.1:8000/shop/?shape=${data}`;
+                    document.querySelector( '.redirect' ).style.display='flex';
+
+
+                });
+
+
+        };
+
+
+    </script>
+
+
+{% endblock %}

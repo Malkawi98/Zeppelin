@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="page registration-page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Registration</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in,
+                    mattis vitae leo.</p>
+            </div>
+
+            <div class="form-group"><label for="name">Name</label><input class="form-control item" type="text"
+                                                                         id="name" name="name"></div>
+            <div class="form-group"><label for="password">Password</label><input class="form-control item"
+                                                                                 type="password" id="password"
+                                                                                 name="password"></div>
+            <div class="form-group"><label for="email">Email</label><input class="form-control item" type="email"
+                                                                           id="email" name="email"></div>
+            <button class="btn btn-primary btn-block" class="submit" onclick="formInfo()" >Sign Up</button>
+
+        </div>
+    </section>
+</main>
+
+<script>
+    document.querySelector(".submit").addEventListener("click", formInfo);
+
+    function formInfo() {
+        let formValues = document.querySelectorAll('.form-control')
+
+
+        const data = {'name': formValues[0].value, 'password': formValues[1].value, 'email': formValues[2].value};
+        fetch('http://127.0.0.1:8000/auth/register', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+
+
+
+
+</script>
+{% endblock %}

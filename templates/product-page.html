@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+    <link rel="stylesheet" href="../node_modules/awesome-notifications/src/style.css"></link>
+    <script src="../node_modules/awesome-notifications/src/index.var.js"></script>
+    <main class="page product-page">
+        <section class="clean-block clean-product dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Product Page</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in,
+                        mattis vitae leo.</p>
+                </div>
+                <div class="block-content">
+                    <div class="product-info">
+                        <div class="row">
+
+                                {% if user_id %}
+                            <p class="user_id" hidden="hidden">{{ user_id }}</p>
+                            {% endif %}
+                                <div class="col-md-6">
+                                    <div class="gallery">
+                                        <div class="sp-wrap sp-non-touch" style="display: inline-block;">
+                                            <div class="sp"><a href="/tech/image1.jpg" ><img
+                                                    src="{{ result[5] }}" alt=""></a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info">
+                                        <h3>{{ result[1] }}</h3>
+
+                                        <div class="price">
+                                            <h3>$300.00</h3>
+                                        </div>
+                                          {% if flag %}
+                                        <button class="btn btn-primary cart" type="button">
+
+                                            <i class="icon-basket"></i>Add to Cart
+                                            {% endif %}
+                                        </button>
+                                        <div class="status"></div>
+                                        <div class="summary">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue
+                                                nunc,
+                                                pretium at augue at, convallis pellentesque ipsum. Vestibulum diam
+                                                risus,
+                                                sagittis at fringilla at, pulvinar vel risus. Vestibulum dignissim eu
+                                                nulla eu
+                                                imperdiet. Morbi mollis tellus a nunc vestibulum consequat. Quisque
+                                                tristique
+                                                elit et nibh dapibus sodales. Nam sollicitudin a urna sed iaculis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="glasses_id" hidden>{{ result[0] }}</div>
+
+                    <div class="product-info">
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist" id="myTab">
+                                <li class="nav-item" role="presentation"><a class="nav-link active" role="tab"
+                                                                            data-toggle="tab" id="description-tab"
+                                                                            href="#description">Description</a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab"
+                                                                            data-toggle="tab"
+                                                                            id="specifications-tabs"
+                                                                            href="#specifications">Specifications</a>
+                                </li>
+                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab"
+                                                                            data-toggle="tab"
+                                                                            id="reviews-tab" href="#reviews">Reviews</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active description" role="tabpanel" id="description">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna,
+                                        dignissim
+                                        nec auctor in, mattis vitae leo. Lorem ipsum dolor sit amet, consectetur
+                                        adipiscing
+                                        elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna,
+                                        dignissim nec auctor in, mattis vitae leo. Lorem ipsum dolor sit amet,
+                                        consectetur
+                                        adipiscing elit.</p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clean-related-items">
+                        <h3>Related Products</h3>
+                        <div class="items">
+                            <div class="row justify-content-center">
+                                {% for i in random_products %}
+
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="clean-related-item h-100 d-flex flex-column justify-content-between">
+                                            <div class="image"><a href=""><img class="img-fluid d-block mx-auto" style="    max-height: 200px;
+    min-height: 150px;
+    object-fit: contain;"
+                                                                               src="{{ i[5] }}"></a></div>
+                                            <div class="related-name"><a href="http://127.0.0.1:8000/product/{{ i[0] }}">{{ i[1] }}</a>
+
+                                                <h4>$300</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="mr-auto">Title</strong>
+                <small>5 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Content... this is a toast message.
+            </div>
+        </div>
+
+    </main>
+
+
+    <script>
+        document.querySelector('.cart').addEventListener('click', () => {
+            let user_id = document.querySelector('.user_id').innerHTML
+            let glasses_id = document.querySelector('.glasses_id').innerHTML
+            let addStatus = document.querySelector('.status')
+            data = {'user_id': user_id, 'glasses_id': glasses_id, 'quantity':1}
+            fetch('/cart/add/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(async (response)=>{
+            let data = response.json()
+                if (response.status == 409){
+                    addStatus.innerHTML = 'Item Already Exist'
+                }
+                else{
+                    addStatus.innerHTML = 'Item Added to your Cart'}
+            })
+                .catch((err) => {
+          console.log(err);
+      })
+
+
+
+        })
+    </script>
+{% endblock %}

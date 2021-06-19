@@ -142,3 +142,20 @@ async def about_us(request: Request):
     return templates.TemplateResponse('about-us.html', {"request": request, 'flag': flag})
 
 
+@app.get('/payment/')
+async def payment(request: Request):
+    token_status = check_token.get_token(request)
+    flag, user_id = False, None
+    if token_status['valid']:
+        flag = True
+        user_id = token_status['user_id']
+    cart_items = cart_db.select().where(cart_db.c.user_id == user_id)
+    excec_get_items = await database.fetch_all(cart_items)
+
+    glasses_id = [i[-1] for i in excec_get_items]
+
+    glasses_items = notes.select().where(notes.c.id.in_(glasses_id))
+    excec_glasses_items = await database.fetch_all(glasses_items)
+    prices = [i[8] for i in excec_glasses_items]
+    total_in_cart = sum(prices)
+    return templates.TemplateResponse('payment-page.html', {"request": request,'items': excec_glasses_items, 'flag': flag, 'sum': total_in_cart})

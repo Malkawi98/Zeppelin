@@ -30,7 +30,7 @@ async def get_cart(request: Request):
     excec_glasses_items = await database.fetch_all(glasses_items)
     prices = [i[8] for i in excec_glasses_items]
     total_in_cart = sum(prices)
-    print(excec_get_items, total_in_cart)
+
     return templates.TemplateResponse('shopping-cart.html',
                                       {"request": request, 'items': excec_glasses_items, 'total': total_in_cart,
                                        'flag': flag})

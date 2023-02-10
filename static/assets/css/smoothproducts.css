@@ -57,7 +57,7 @@ html, body {
 }
 
 .sp-thumbs a:active, .sp-current {
-  opacity: 1 !important;
+  opacity: 1!important;
   position: relative;
 }
 

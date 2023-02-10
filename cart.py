@@ -1,5 +1,4 @@
 from fastapi import HTTPException
-
 from shop import *
 
 app = FastAPI()
@@ -14,7 +13,7 @@ class Cart(BaseModel):
     quantity: int = 1
 
 
-@router.get("/cart/")
+@router.get("/cart/", tags=["store"])
 async def get_cart(request: Request):
     a = await activate_foreign_keys()
     token_status = check_token.get_token(request)
@@ -33,22 +32,19 @@ async def get_cart(request: Request):
     total_in_cart = sum(prices)
 
     return templates.TemplateResponse('shopping-cart.html',
-                                      {"request": request, 'items': excec_glasses_items,
-                                       'total': total_in_cart,
+                                      {"request": request, 'items': excec_glasses_items, 'total': total_in_cart,
                                        'flag': flag})
 
 
-@router.post('/cart/add/')
+@router.post('/cart/add/', tags=["store"])
 async def add_to_cart(request: Request, shop_cart: Cart):
-    token = request.cookies.get('fastapiusersauth')
-    token_validity = check_token.validate_token(token)
-    flag, user_id = None, None
-    if type(token_validity) == dict:
+    token_status = check_token.get_token(request)
+    flag, user_id, admin = False, None, False
+    if token_status['valid']:
         flag = True
-        user_id = token_validity.get('user_id')
+        user_id = token_status['user_id']
     activate_foreign_keys()
-    check_item_exists = cart.select().where(cart.c.user_id == user_id).where(
-        cart.c.glasses_id == shop_cart.glasses_id)
+    check_item_exists = cart.select().where(cart.c.user_id == user_id).where(cart.c.glasses_id == shop_cart.glasses_id)
     exec_item_exists = await database.fetch_one(check_item_exists)
     if exec_item_exists is not None:
         raise HTTPException(status_code=409, detail="Item already exists")

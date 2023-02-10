@@ -1,81 +1,78 @@
 {% extends 'base.html' %}
 {% block content %}
-  <style>
+<style>
     label {
-      width: 100px;
+        width: 100px;
     }
-  </style>
-  <main class="page gallery-page">
-    <section class="clean-block clean-gallery dark">
-      <div class="container">
-        <div class="block-heading">
-          <h2 class="text-info">Add a Glass</h2>
-        </div>
-      </div>
-      <div class="form-group d-flex flex-column align-items-center" style="margin-bottom: 0.7rem;">
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
-          <label>Name</label><input
-          type="text" style="margin-right: 0px;margin-left: 1rem;"/></div>
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
-          <label>Brand</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
-                                     required="required"/>
-        </div>
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
-          <label>Gender</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
-                                      required="required"/>
-        </div>
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
-          <label>Color</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
-                                     required="required"/>
-        </div>
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
-          <label>Image</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
-                                     required="required"/>
-        </div>
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
-          <label>Shape</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
-                                     required="required"/>
-        </div>
-        <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;"><label>Glasses
-          Type</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
-                             required="required"/></div>
-        <div class="d-flex flex-row align-items-center"><label>Price</label><input type="number"
-                                                                                   style="margin-right: 0px;margin-left: 1rem; "
-                                                                                   required="required"/>
-        </div>
-        <button class="btn btn-primary mt-3 submit" type="button">Add Item</button>
-        <div class="not-found"></div>
-      </div>
-    </section>
-  </main>
+</style>
+    <main class="page gallery-page">
+        <section class="clean-block clean-gallery dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Add a Glass</h2>
+                </div>
+            </div>
+            <div class="form-group d-flex flex-column align-items-center" style="margin-bottom: 0.7rem;">
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;"><label>Name</label><input
+                        type="text" style="margin-right: 0px;margin-left: 1rem;" /></div>
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
+                    <label>Brand</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
+                        required="required" />
+                </div>
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
+                    <label>Gender</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
+                        required="required" />
+                </div>
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
+                    <label>Color</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
+                        required="required" />
+                </div>
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
+                    <label>Image</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
+                        required="required" />
+                </div>
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;">
+                    <label>Shape</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
+                        required="required" />
+                </div>
+                <div class="d-flex flex-row align-items-center" style="margin-bottom: 0.7rem;"><label>Glasses
+                        Type</label><input type="text" style="margin-right: 0px;margin-left: 1rem; "
+                        required="required" /></div>
+                <div class="d-flex flex-row align-items-center"><label>Price</label><input type="number"
+                        style="margin-right: 0px;margin-left: 1rem; " required="required" /></div>
+                <button class="btn btn-primary mt-3 submit" type="button">Add Item</button>
+                <div class="not-found"></div>
+            </div>
+        </section>
+    </main>
 
-  <script>
-    document.querySelector(".submit").addEventListener('click', () => {
-      const data = document.querySelectorAll('input')
-      let isEmpty = () => {
-        let isEmpty = !Object.values(data).some(x => x.value !== null && x.value !== '');
-        return isEmpty;
-      }
+    <script>
+        document.querySelector( ".submit" ).addEventListener( 'click', () => {
+            const data = document.querySelectorAll( 'input' )
+            let isEmpty = () => {
+                let isEmpty = !Object.values( data ).some( x => x.value !== null && x.value !== '' );
+                return isEmpty;
+            }
 
-      if (!isEmpty()) {
-        const items = Object.values(data).map(ele => {
-          return ele.value
-        })
-        const keys = ['name', 'brand', 'gender', 'color', 'image', 'glasses_type', 'shape', 'price']
-        var result = {};
-        keys.forEach((key, i) => result[key] = items[i]);
-        fetch('/add-glass', {
-          method: 'POST',
-          body: JSON.stringify(result)
-        }).then(
-          function (response) {
-            return response
-          }
-        ).then(() => document.querySelector('.not-found').innerHTML = 'Item is added')
-      } else {
-        document.querySelector('.not-found').innerHTML = 'Please fill all the Elements'
-      }
-    });
+            if ( !isEmpty() ) {
+                const items = Object.values( data ).map( ele => {
+                    return ele.value
+                } )
+                 const keys = ['name', 'brand', 'gender', 'color','image','glasses_type', 'shape', 'price']
+                var result = {};
+                keys.forEach((key, i) => result[key] = items[i]);
+                fetch( '/add-glass', {
+                    method: 'POST',
+                    body:  JSON.stringify(result)
+                } ).then(
+                    function ( response ) {
+                        return response
+                    }
+                ).then( () => document.querySelector( '.not-found' ).innerHTML = 'Item is added' )
+            } else {
+                document.querySelector( '.not-found' ).innerHTML = 'Please fill all the Elements'
+            }
+        } );
 
-  </script>
-{% endblock %}
+    </script>
+    {% endblock %}

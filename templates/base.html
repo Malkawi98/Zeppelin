@@ -2,155 +2,142 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Login - Brand</title>
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-  <link href="{{ url_for('static', path='assets/bootstrap/css/bootstrap.min.css') }}"
-        rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/bootstrap/css/bootstrap.min.css') }}"
-        rel="stylesheet">
-  <link href="{{ url_for('static', path="assets/fonts/font-awesome.min.css") }}" rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/bootstrap/css/bootstrap.min.css') }}"
-        rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/fonts/simple-line-icons.min.css') }}"
-        rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/css/Bootstrap-Cards-v2.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/css/Rounded-Button.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/css/smoothproducts.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', path='assets/css/main.css') }}" rel="stylesheet">
-  <link rel="shortcut icon" href="{{ url_for('static', path='assets/img/favicon.ico') }}"
-        type="image/x-icon"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Zeppelin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link href="{{ url_for('static', path='assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path="assets/fonts/font-awesome.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='assets/fonts/simple-line-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='assets/css/Bootstrap-Cards-v2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='assets/css/Rounded-Button.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='assets/css/smoothproducts.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', path='assets/img/favicon.ico') }}" type="image/x-icon"/>
 </head>
 
 <body>
 <style>
-  body {
-    background-color: #f6f6f6;
-  }
+    body {
+        background-color: #f6f6f6;
+    }
 </style>
 <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
 
-  <div class="container"><a class="navbar-brand logo" href="{{ url_for('index') }}">Zepplein</a>
-    <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span
-      class="sr-only">Toggle navigation</span><span
-      class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navcol-1">
-      <div class="btn-toolbar">
-        <div class="btn-group" role="group"></div>
-        <div class="btn-group" role="group"></div>
-      </div>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('about_us') }}">About Us</a></li>
+    <div class="container"><a class="navbar-brand logo" href="{{ url_for('index') }}">Zepplein</a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <div class="btn-toolbar">
+                <div class="btn-group" role="group"></div>
+                <div class="btn-group" role="group"></div>
+            </div>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link"href="{{ url_for('about_us') }}">About Us</a></li>
 
 
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('shop') }}">Catalog</a></li>
-        {% if admin %}
-          <li class="nav-item"><a href="{{ url_for('add_glasses') }}" class="nav-link">Add a
-            Glass</a></li>
-        {% endif %}
-        {% if not flag %}
-          <li class="nav-item"><a class="nav-link active"
-                                  href="{{ url_for('user_login') }}">Login</a></li>
-        {% else %}
-          <li class="nav-item"><a style="cursor: pointer;" class="nav-link active logout"
-                                  onclick="logout()">Logout</a></li>
-        {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('shop') }}">Catalog</a></li>
+                        {% if admin %}
+                <li class="nav-item"><a href="{{ url_for('add_glasses') }}" class="nav-link">Add a Glass</a></li>
+                        <li class="nav-item"><a href="{{ url_for('modify_glasses') }}" class="nav-link">Modify a Glass</a></li>
+            {% endif %}
+                {% if not flag %}
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('user_login') }}">Login</a></li>
+                {% else %}
+                    <li class="nav-item"><a style="cursor: pointer;" class="nav-link active logout" onclick="logout()">Logout</a></li>
+                {% endif %}
 
-        {% if flag %}
-          <li class="nav-item"><a href="{{ url_for('get_cart') }}" style='color:black;'
-                                  class="bi bi-cart">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                 class="bi bi-cart" viewBox="0 0 16 16">
-              <path
-                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-          </a></li>{% endif %}
-      </ul>
+            {% if flag %}
+                <li class="nav-item"><a href="{{ url_for('get_cart') }}" style='color:black;' class="bi bi-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                </a></li>{% endif %}
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 {% block content %}{% endblock %}
 
 <footer class="page-footer dark">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3">
-        <h5>Get started</h5>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Sign up</a></li>
-          <li><a href="#">Downloads</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>About us</h5>
-        <ul>
-          <li><a href="#">Company Information</a></li>
-          <li><a href="#">Contact us</a></li>
-          <li><a href="#">Reviews</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Support</h5>
-        <ul>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Help desk</a></li>
-          <li><a href="#">Forums</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>Legal</h5>
-        <ul>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Terms of Use</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sign up</a></li>
+                    <li><a href="#">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#">Company Information</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Help desk</a></li>
+                    <li><a href="#">Forums</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="footer-copyright">
-    <p>© 2023 Copyright Text</p>
-  </div>
+    <div class="footer-copyright">
+        <p>© 2021 Copyright Text</p>
+    </div>
 </footer>
 
 {% block javascript %}
-  <script src="{{ url_for('static',path='assets/js/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static',path='assets/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static',path='assets/js/smoothproducts.min.js') }}"></script>
-  <script src="{{ url_for('static',path='assets/js/theme.js') }}"></script>
-  <script src="{{ url_for('static',path='assets/js/takephoto.js') }}"></script>
-  <script src="{{ url_for('static',path='assets/js/webcam.min.js') }}"></script>
-  <script>
-    let logout = () => {
+    <script src="{{ url_for('static',path='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',path='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',path='assets/js/smoothproducts.min.js') }}"></script>
+    <script src="{{ url_for('static',path='assets/js/theme.js') }}"></script>
+    <script src="{{ url_for('static',path='assets/js/takephoto.js') }}"></script>
+    <script src="{{ url_for('static',path='assets/js/webcam.min.js') }}"></script>
+    <script>
+        let logout = () => {
 
-      fetch('/auth/jwt/logout', {
-        method: 'post',
-      }).then(res => res.json())
-      .then(res => {
-        console.log(res)
-        window.location.replace("/");
-      });
-    }
+            fetch('/auth/jwt/logout', {
+                method: 'post',
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    window.location.replace("/");
+                });
+        }
 
 
-  </script>
+    </script>
 {% endblock %}
 <style>
-  body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
-  footer {
-    margin-top: auto;
-  }
+    footer {
+        margin-top: auto;
+    }
 </style>
 
 </body>

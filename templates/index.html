@@ -1,582 +1,569 @@
 {% extends 'base.html' %}
 {% block content %}
-  <main class="page">
-    <section class="clean-block features">
-      <style>
-        body {
-          font-size: 16px;
+    <main class="page">
+        <section class="clean-block features"><style>
+    body {
+        font-size: 16px;
+    }
+
+    @media all {
+        a {
+            background-color: transparent;
         }
 
-        @media all {
-          a {
-            background-color: transparent;
-          }
-
-          a:active,
-          a:hover {
+        a:active,
+        a:hover {
             outline: 0;
-          }
+        }
 
-          img {
+        img {
             border: 0;
-          }
+        }
 
-          svg:not(:root) {
+        svg:not(:root) {
             overflow: hidden;
-          }
+        }
 
-          *,
-          :after,
-          :before {
+        *,
+        :after,
+        :before {
             -webkit-box-sizing: inherit;
             box-sizing: inherit;
-          }
+        }
 
-          img {
+        img {
             max-width: 100%;
-          }
+        }
 
-          a {
+        a {
             color: #00a2e1;
             text-decoration: none;
-          }
+        }
 
-          a:hover {
+        a:hover {
             cursor: pointer;
             color: #0089bf;
-          }
+        }
 
-          .u-db {
+        .u-db {
             display: block;
-          }
+        }
 
-          .u-df {
+        .u-df {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-          }
+        }
 
-          .u-dn {
+        .u-dn {
             display: none;
-          }
+        }
 
-          .u-ai--c {
+        .u-ai--c {
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
-          }
+        }
 
-          .u-flexd--c {
+        .u-flexd--c {
             -webkit-box-orient: vertical;
             -ms-flex-direction: column;
             flex-direction: column;
-          }
-
-          .u-flexd--c {
-            -webkit-box-direction: normal;
-          }
-
-          .u-fs30 {
-            font-size: 30px;
-          }
-
-          .u-mt30 {
-            margin-top: 30px;
-          }
-
-          .u-mr12 {
-            margin-right: 12px;
-          }
-
-          .u-mra {
-            margin-right: auto;
-          }
-
-          .u-mb18 {
-            margin-bottom: 18px;
-          }
-
-          .u-mb24 {
-            margin-bottom: 24px;
-          }
-
-          .u-mla {
-            margin-left: auto;
-          }
-
-          .u-tac {
-            text-align: center;
-          }
-
-          .u-w100p {
-            width: 100%;
-          }
-
-          .u-mw1440 {
-            max-width: 1440px;
-          }
         }
 
-        /*! CSS Used from: https://www.warbyparker.com/assets/4d354bfb7aee212d5dc583b28b5b267e1cdc0f5c/css/utility-600.css ; media=screen and (min-width: 600px) */
-        @media screen and (min-width: 600px) {
-          @media (min-width: 900px) {
+        .u-flexd--c {
+            -webkit-box-direction: normal;
+        }
+
+        .u-fs30 {
+            font-size: 30px;
+        }
+
+        .u-mt30 {
+            margin-top: 30px;
+        }
+
+        .u-mr12 {
+            margin-right: 12px;
+        }
+
+        .u-mra {
+            margin-right: auto;
+        }
+
+        .u-mb18 {
+            margin-bottom: 18px;
+        }
+
+        .u-mb24 {
+            margin-bottom: 24px;
+        }
+
+        .u-mla {
+            margin-left: auto;
+        }
+
+        .u-tac {
+            text-align: center;
+        }
+
+        .u-w100p {
+            width: 100%;
+        }
+
+        .u-mw1440 {
+            max-width: 1440px;
+        }
+    }
+
+    /*! CSS Used from: https://www.warbyparker.com/assets/4d354bfb7aee212d5dc583b28b5b267e1cdc0f5c/css/utility-600.css ; media=screen and (min-width: 600px) */
+    @media screen and (min-width: 600px) {
+        @media (min-width:900px) {
             .u-db--900 {
-              display: block;
+                display: block;
             }
 
             .u-dn--900 {
-              display: none;
+                display: none;
             }
-          }
+        }
 
-          @media (min-width: 600px) {
+        @media (min-width:600px) {
             .u-fs40--600 {
-              font-size: 40px;
+                font-size: 40px;
             }
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .u-fs55--900 {
-              font-size: 55px;
+                font-size: 55px;
             }
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .u-pa--900 {
-              position: absolute;
+                position: absolute;
             }
 
             .u-pr--900 {
-              position: relative;
+                position: relative;
             }
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .u-mt0--900 {
-              margin-top: 0;
+                margin-top: 0;
             }
 
             .u-mb30--900 {
-              margin-bottom: 30px;
+                margin-bottom: 30px;
             }
-          }
         }
+    }
 
-        /*! CSS Used from: https://www.warbyparker.com/assets/4d354bfb7aee212d5dc583b28b5b267e1cdc0f5c/css/bundles/bundle-core-components.css ; media=all */
-        @media all {
-          picture img {
+    /*! CSS Used from: https://www.warbyparker.com/assets/4d354bfb7aee212d5dc583b28b5b267e1cdc0f5c/css/bundles/bundle-core-components.css ; media=all */
+    @media all {
+        picture img {
             display: block;
-          }
         }
+    }
 
-        /*! CSS Used from: https://www.warbyparker.com/assets/4d354bfb7aee212d5dc583b28b5b267e1cdc0f5c/css/bundles/bundle-pages-home.css ; media=all */
-        @media all {
-          .c-editorial-text-block__text {
+    /*! CSS Used from: https://www.warbyparker.com/assets/4d354bfb7aee212d5dc583b28b5b267e1cdc0f5c/css/bundles/bundle-pages-home.css ; media=all */
+    @media all {
+        .c-editorial-text-block__text {
             font-family: utopia-std-display, Times New Roman, serif;
             font-weight: 400;
             margin: 0;
-          }
+        }
 
-          .c-homepage-4__hero-image-wrapper {
+        .c-homepage-4__hero-image-wrapper {
             aspect-ratio: 1/1;
             height: 0;
             width: 100%;
             padding-bottom: 100%;
-          }
+        }
 
-          @media (min-width: 720px) {
+        @media (min-width:720px) {
             .c-homepage-4__hero-image-wrapper {
-              padding-bottom: 75%;
+                padding-bottom: 75%;
             }
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .c-homepage-4__hero-image-wrapper {
-              padding-bottom: 50%;
+                padding-bottom: 50%;
             }
-          }
+        }
 
-          .c-homepage-4__hero-image {
+        .c-homepage-4__hero-image {
             width: 100%;
-          }
+        }
 
-          .c-homepage-4__heading-text {
+        .c-homepage-4__heading-text {
             width: 80%;
             max-width: 400px;
             padding: 0 18px;
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .c-homepage-4__heading-text {
-              width: 100%;
-              padding: 0;
+                width: 100%;
+                padding: 0;
             }
-          }
+        }
 
-          .c-homepage-4__heading-text-and-buttons {
+        .c-homepage-4__heading-text-and-buttons {
             -webkit-animation-duration: 2s;
             animation-duration: 2s;
             -webkit-animation-name: fade-in;
             animation-name: fade-in;
             margin-bottom: 30px;
-          }
+        }
 
-          @media (min-width: 720px) {
+        @media (min-width:720px) {
             .c-homepage-4__heading-text-and-buttons {
-              margin-top: 12px;
+                margin-top: 12px;
             }
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .c-homepage-4__heading-text-and-buttons {
-              margin-top: 0;
-              top: 50%;
-              -webkit-transform: translateY(-50%);
-              -ms-transform: translateY(-50%);
-              transform: translateY(-50%);
-              width: 30%;
+                margin-top: 0;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+                width: 30%;
             }
 
             .c-homepage-4__heading-text-and-buttons.-right {
-              right: 4%;
+                right: 4%;
             }
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .c-homepage-4__button-group-wrapper {
-              width: 100%;
+                width: 100%;
             }
-          }
+        }
 
-          .c-homepage-4__quizLink {
+        .c-homepage-4__quizLink {
             margin-top: 18px;
-          }
+        }
 
-          @media (min-width: 900px) {
+        @media (min-width:900px) {
             .c-homepage-4__quizLink {
-              margin-top: 0;
+                margin-top: 0;
             }
-          }
         }
+    }
 
-        /*! CSS Used from: Embedded */
+    /*! CSS Used from: Embedded */
+    .css-ta2m0g {
+        margin-bottom: 0px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        font-family: proxima-nova, Helvetica, Verdana, sans-serif;
+        font-weight: 600;
+        line-height: calc(100% + 10px);
+        font-size: inherit;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        border: 0;
+        padding: 0;
+        background-color: transparent;
+        color: #414B56;
+        stroke: #414B56;
+    }
+
+    .css-ta2m0g:hover {
+        color: #676F78;
+        stroke: #676F78;
+    }
+
+    .css-ta2m0g:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #676F78;
+        border-radius: 1px;
+        color: #676F78;
+        stroke: #676F78;
+    }
+
+    @media (min-width:600px) {
         .css-ta2m0g {
-          margin-bottom: 0px;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          font-family: proxima-nova, Helvetica, Verdana, sans-serif;
-          font-weight: 600;
-          line-height: calc(100% + 10px);
-          font-size: inherit;
-          -webkit-text-decoration: none;
-          text-decoration: none;
-          border: 0;
-          padding: 0;
-          background-color: transparent;
-          color: #414B56;
-          stroke: #414B56;
-        }
-
-        .css-ta2m0g:hover {
-          color: #676F78;
-          stroke: #676F78;
-        }
-
-        .css-ta2m0g:focus {
-          outline: none;
-          box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #676F78;
-          border-radius: 1px;
-          color: #676F78;
-          stroke: #676F78;
-        }
-
-        @media (min-width: 600px) {
-          .css-ta2m0g {
             border-bottom-color: transparent;
-          }
         }
+    }
 
-        /*! CSS Used from: Embedded */
-        .css-g06phx {
-          display: inline-block;
-          margin-left: 6px;
-          margin-top: -1px;
-          vertical-align: middle;
-          padding-right: 0;
-          line-height: 0;
-        }
+    /*! CSS Used from: Embedded */
+    .css-g06phx {
+        display: inline-block;
+        margin-left: 6px;
+        margin-top: -1px;
+        vertical-align: middle;
+        padding-right: 0;
+        line-height: 0;
+    }
 
-        /*! CSS Used from: Embedded */
-        .css-96y8d {
-          -webkit-transform: rotate(0deg);
-          -ms-transform: rotate(0deg);
-          transform: rotate(0deg);
-        }
+    /*! CSS Used from: Embedded */
+    .css-96y8d {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
 
-        /*! CSS Used from: Embedded */
-        .css-1qsh33p {
-          display: inline-block;
-          -webkit-appearance: none;
-          border-radius: 17px;
-          -webkit-transition: background-color 0.4s;
-          transition: background-color 0.4s;
-          text-align: center;
-          vertical-align: middle;
-          white-space: nowrap;
-          height: 34px;
-          padding: 6px 16px;
-          outline: 0;
-          font-family: proxima-nova, Helvetica, Verdana, sans-serif;
-          font-size: 16px;
-          font-weight: 600;
-          min-width: initial;
-          cursor: pointer;
-          color: #414B56;
-          border: 1px solid #A1A4A6;
-          background-color: transparent;
-          text-shadow: none;
-          margin-bottom: 0px;
-        }
+    /*! CSS Used from: Embedded */
+    .css-1qsh33p {
+        display: inline-block;
+        -webkit-appearance: none;
+        border-radius: 17px;
+        -webkit-transition: background-color 0.4s;
+        transition: background-color 0.4s;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        height: 34px;
+        padding: 6px 16px;
+        outline: 0;
+        font-family: proxima-nova, Helvetica, Verdana, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        min-width: initial;
+        cursor: pointer;
+        color: #414B56;
+        border: 1px solid #A1A4A6;
+        background-color: transparent;
+        text-shadow: none;
+        margin-bottom: 0px;
+    }
 
-        .css-1qsh33p::before {
-          content: "";
-          display: inline-block;
-          vertical-align: middle;
-          height: 100%;
-        }
+    .css-1qsh33p::before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
 
-        .css-1qsh33p:hover {
-          border-color: #00A2E1;
-          background-color: #00A2E1;
-          box-shadow: none;
-          color: #FFFFFF;
-        }
+    .css-1qsh33p:hover {
+        border-color: #00A2E1;
+        background-color: #00A2E1;
+        box-shadow: none;
+        color: #FFFFFF;
+    }
 
-        .css-1qsh33p:focus,
-        .css-1qsh33p:active {
-          border-color: #414B56;
-          color: #FFFFFF;
-          background-color: #00A2E1;
-          box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #0089BF;
-        }
+    .css-1qsh33p:focus,
+    .css-1qsh33p:active {
+        border-color: #414B56;
+        color: #FFFFFF;
+        background-color: #00A2E1;
+        box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #0089BF;
+    }
 
-        .css-1qsh33p:disabled {
-          color: rgba(82, 94, 105, 0.5);
-          border-color: #A1A4A6;
-          box-shadow: inset 0 0 0 1px #FFFFFF;
-        }
+    .css-1qsh33p:disabled {
+        color: rgba(82, 94, 105, 0.5);
+        border-color: #A1A4A6;
+        box-shadow: inset 0 0 0 1px #FFFFFF;
+    }
 
-        /*! CSS Used from: Embedded */
-        .css-1468vy3 {
-          display: inline-block;
-          -webkit-appearance: none;
-          border-radius: 17px;
-          -webkit-transition: background-color 0.4s;
-          transition: background-color 0.4s;
-          text-align: center;
-          vertical-align: middle;
-          white-space: nowrap;
-          height: 34px;
-          padding: 6px 16px;
-          outline: 0;
-          font-family: proxima-nova, Helvetica, Verdana, sans-serif;
-          font-size: 16px;
-          font-weight: 600;
-          min-width: initial;
-          cursor: pointer;
-          color: #414B56;
-          border: 1px solid #FFFFFF;
-          background: #FFFFFF;
-          text-shadow: none;
-          margin-bottom: 0px;
-        }
+    /*! CSS Used from: Embedded */
+    .css-1468vy3 {
+        display: inline-block;
+        -webkit-appearance: none;
+        border-radius: 17px;
+        -webkit-transition: background-color 0.4s;
+        transition: background-color 0.4s;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        height: 34px;
+        padding: 6px 16px;
+        outline: 0;
+        font-family: proxima-nova, Helvetica, Verdana, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        min-width: initial;
+        cursor: pointer;
+        color: #414B56;
+        border: 1px solid #FFFFFF;
+        background: #FFFFFF;
+        text-shadow: none;
+        margin-bottom: 0px;
+    }
 
-        .css-1468vy3::before {
-          content: "";
-          display: inline-block;
-          vertical-align: middle;
-          height: 100%;
-        }
+    .css-1468vy3::before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
 
-        .css-1468vy3:hover {
-          border-color: #00A2E1;
-          background-color: #00A2E1;
-          box-shadow: none;
-          color: #FFFFFF;
-        }
+    .css-1468vy3:hover {
+        border-color: #00A2E1;
+        background-color: #00A2E1;
+        box-shadow: none;
+        color: #FFFFFF;
+    }
 
-        .css-1468vy3:focus,
-        .css-1468vy3:active {
-          box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #0089BF;
-          background-color: #00A2E1;
-          color: #FFFFFF;
-        }
+    .css-1468vy3:focus,
+    .css-1468vy3:active {
+        box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #0089BF;
+        background-color: #00A2E1;
+        color: #FFFFFF;
+    }
 
-        .css-1468vy3:disabled {
-          color: rgba(82, 94, 105, 0.5);
-          background: #FFFFFF;
-          box-shadow: inset 0 0 0 1px #FFFFFF;
-        }
+    .css-1468vy3:disabled {
+        color: rgba(82, 94, 105, 0.5);
+        background: #FFFFFF;
+        box-shadow: inset 0 0 0 1px #FFFFFF;
+    }
 
-        /*! CSS Used keyframes */
-        @-webkit-keyframes fade-in {
-          0% {
+    /*! CSS Used keyframes */
+    @-webkit-keyframes fade-in {
+        0% {
             opacity: 0;
-          }
         }
+    }
 
-        @keyframes fade-in {
-          0% {
+    @keyframes fade-in {
+        0% {
             opacity: 0;
-          }
         }
+    }
 
-        /*! CSS Used fontfaces */
-        @font-face {
-          font-family: utopia-std-display;
-          src: url(https://use.typekit.net/af/7504be/0000000000000000000130a0/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff2"), url(https://use.typekit.net/af/7504be/0000000000000000000130a0/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff"), url(https://use.typekit.net/af/7504be/0000000000000000000130a0/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("opentype");
-          font-weight: 400;
-          font-style: italic;
-          font-display: auto;
-        }
+    /*! CSS Used fontfaces */
+    @font-face {
+        font-family: utopia-std-display;
+        src: url(https://use.typekit.net/af/7504be/0000000000000000000130a0/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff2"), url(https://use.typekit.net/af/7504be/0000000000000000000130a0/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff"), url(https://use.typekit.net/af/7504be/0000000000000000000130a0/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("opentype");
+        font-weight: 400;
+        font-style: italic;
+        font-display: auto;
+    }
 
-        @font-face {
-          font-family: utopia-std-display;
-          src: url(https://use.typekit.net/af/79e94f/0000000000000000000130a1/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff2"), url(https://use.typekit.net/af/79e94f/0000000000000000000130a1/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff"), url(https://use.typekit.net/af/79e94f/0000000000000000000130a1/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("opentype");
-          font-weight: 400;
-          font-style: normal;
-          font-display: auto;
-        }
+    @font-face {
+        font-family: utopia-std-display;
+        src: url(https://use.typekit.net/af/79e94f/0000000000000000000130a1/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff2"), url(https://use.typekit.net/af/79e94f/0000000000000000000130a1/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff"), url(https://use.typekit.net/af/79e94f/0000000000000000000130a1/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: auto;
+    }
 
-        @font-face {
-          font-family: proxima-nova;
-          src: url(https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n7&v=3) format("woff2"), url(https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n7&v=3) format("woff"), url(https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n7&v=3) format("opentype");
-          font-weight: 700;
-          font-style: normal;
-          font-display: auto;
-        }
+    @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n7&v=3) format("woff2"), url(https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n7&v=3) format("woff"), url(https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n7&v=3) format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: auto;
+    }
 
-        @font-face {
-          font-family: proxima-nova;
-          src: url(https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n6&v=3) format("woff2"), url(https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n6&v=3) format("woff"), url(https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n6&v=3) format("opentype");
-          font-weight: 600;
-          font-style: normal;
-          font-display: auto;
-        }
+    @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n6&v=3) format("woff2"), url(https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n6&v=3) format("woff"), url(https://use.typekit.net/af/576d53/00000000000000003b9b3066/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n6&v=3) format("opentype");
+        font-weight: 600;
+        font-style: normal;
+        font-display: auto;
+    }
 
-        @font-face {
-          font-family: proxima-nova;
-          src: url(https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff2"), url(https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff"), url(https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("opentype");
-          font-weight: 400;
-          font-style: normal;
-          font-display: auto;
-        }
+    @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff2"), url(https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("woff"), url(https://use.typekit.net/af/705e94/00000000000000003b9b3062/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=n4&v=3) format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: auto;
+    }
 
-        @font-face {
-          font-family: proxima-nova;
-          src: url(https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff2"), url(https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff"), url(https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("opentype");
-          font-weight: 400;
-          font-style: italic;
-          font-display: auto;
-        }
-      </style>
-      <div class="u-pr--900 u-mla u-mra u-mw1440">
-        <div class="c-homepage-4__hero-image-wrapper u-w100p">
-          <picture>
-            <!--[if IE 9]>
-            <video style='display: none'><![endif]-->
+    @font-face {
+        font-family: proxima-nova;
+        src: url(https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/l?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff2"), url(https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/d?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("woff"), url(https://use.typekit.net/af/5c70f2/00000000000000003b9b3063/27/a?primer=81a69539b194230396845be9681d114557adfb35f4cccc679c164afb4aa47365&fvd=i4&v=3) format("opentype");
+        font-weight: 400;
+        font-style: italic;
+        font-display: auto;
+    }
+</style>
+<div class="u-pr--900 u-mla u-mra u-mw1440">
+    <div class="c-homepage-4__hero-image-wrapper u-w100p">
+        <picture>
+            <!--[if IE 9]><video style='display: none'><![endif]-->
             <source media="(min-width: 900px)"
-                    srcset="http://i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-desktop/0/d2b33dc30f.jpg?quality=60&amp;width=1440, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-desktop/0/d2b33dc30f.jpg?quality=60&amp;width=2160 1.5x, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-desktop/0/d2b33dc30f.jpg?quality=60&amp;width=2880 2x">
+                srcset="http://i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-desktop/0/d2b33dc30f.jpg?quality=60&amp;width=1440, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-desktop/0/d2b33dc30f.jpg?quality=60&amp;width=2160 1.5x, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-desktop/0/d2b33dc30f.jpg?quality=60&amp;width=2880 2x">
             <source media="(min-width: 720px)"
-                    srcset="http://i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-tablet/0/47609cb18a.jpg?quality=60&amp;width=900, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-tablet/0/47609cb18a.jpg?quality=60&amp;width=1350 1.5x, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-tablet/0/47609cb18a.jpg?quality=60&amp;width=1800 2x">
-            <!--[if IE 9]></video><![endif]--> <img class="c-homepage-4__hero-image"
-                                                    alt="Spring core collection frames"
-                                                    srcset="http://i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-mobile/0/e11a63c4c9.jpg?quality=60&amp;width=720 ,//i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-mobile/0/e11a63c4c9.jpg?quality=60&amp;width=1080  1.5x,//i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-mobile/0/e11a63c4c9.jpg?quality=60&amp;width=1440  2x">
-          </picture>
-        </div>
-        <div
-          class="c-homepage-4__heading-text-and-buttons u-df u-flexd--c u-ai--c u-pa--900 u-tac -right">
-          <div class="
+                srcset="http://i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-tablet/0/47609cb18a.jpg?quality=60&amp;width=900, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-tablet/0/47609cb18a.jpg?quality=60&amp;width=1350 1.5x, //i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-tablet/0/47609cb18a.jpg?quality=60&amp;width=1800 2x">
+            <!--[if IE 9]></video><![endif]--> <img class="c-homepage-4__hero-image" alt="Spring core collection frames"
+                srcset="http://i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-mobile/0/e11a63c4c9.jpg?quality=60&amp;width=720 ,//i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-mobile/0/e11a63c4c9.jpg?quality=60&amp;width=1080  1.5x,//i.warbycdn.com/v/c/assets/homepage-2021-01-05/image/hero-mobile/0/e11a63c4c9.jpg?quality=60&amp;width=1440  2x">
+        </picture>
+    </div>
+    <div class="c-homepage-4__heading-text-and-buttons u-df u-flexd--c u-ai--c u-pa--900 u-tac -right">
+        <div class="
               c-homepage-4__heading-text
               u-mb24 u-mt30 u-mb30--900 u-mt0--900
               u-df u-flexd--c u-ai--c u-db--900">
-            <p class="c-editorial-text-block__text u-fs30 u-fs40--600 u-fs55--900">Check Out Our New
-              Collection</p>
-          </div>
-          <div class="
+            <p class="c-editorial-text-block__text u-fs30 u-fs40--600 u-fs55--900">Check Out Our New Collection</p>
+        </div>
+        <div class="
             u-db u-dn--900
             c-homepage-4__button-group-wrapper
             u-mla u-mra
           "><span class="u-mr12"><a href="/shop/?gender=men" class="css-1qsh33p">Shop Men</a></span><a
-            href='/shop/?gender=women' class="css-1qsh33p">Shop Women</a></div>
-          <div class="
+                href='/shop/?gender=women' class="css-1qsh33p">Shop Women</a></div>
+        <div class="
             u-dn u-db--900
             c-homepage-4__button-group-wrapper
             u-mb18 u-mla u-mra
-          "><span class="u-mr12"><a href="shop/?gender=men"
-                                    class="css-1468vy3">Shop Men</a></span><a
-            href='/shop/?gender=women' class="css-1468vy3">Shop Women</a></div>
-          <div class="c-homepage-4__quizLink"><a tabindex="0" href="/upload" class="css-ta2m0g">Take
-            a quiz
-            to find frames using our AI model<span class="css-g06phx"><svg width="6" height="10"
-                                                                           xmlns="http://www.w3.org/2000/svg"
-                                                                           class="css-96y8d">
-                        <g stroke-width="1.75" fill="none" stroke-linecap="round"
-                           fill-rule="evenodd">
+          "><span class="u-mr12"><a href="shop/?gender=men" class="css-1468vy3">Shop Men</a></span><a
+                href='/shop/?gender=women' class="css-1468vy3">Shop Women</a></div>
+        <div class="c-homepage-4__quizLink"><a tabindex="0" href="/upload" class="css-ta2m0g">Take a quiz
+                to find frames using our AI model<span class="css-g06phx"><svg width="6" height="10"
+                        xmlns="http://www.w3.org/2000/svg" class="css-96y8d">
+                        <g stroke-width="1.75" fill="none" stroke-linecap="round" fill-rule="evenodd">
                             <title>Right
                                 <!-- --> Arrow
                             </title>
                             <path d="M5 5L1 9M1 1l4 4"></path>
                         </g>
                     </svg></span></a></div>
-        </div>
-      </div>
-      <div class="bootstrap_cards2">
-        <div class="container py-5">
-          <!-- For Demo Purpose-->
-          <header class="text-center mb-5">
+    </div>
+</div><div class="bootstrap_cards2">
+    <div class="container py-5">
+        <!-- For Demo Purpose-->
+        <header class="text-center mb-5">
             <h1 class="display-4 font-weight-bold">Featuered Products</h1>
-          </header>
+        </header>
 
 
-          <!-- First Row [Prosucts]-->
-          <h2 class="font-weight-bold mb-2">From the Shop</h2>
+        <!-- First Row [Prosucts]-->
+        <h2 class="font-weight-bold mb-2">From the Shop</h2>
 
-          <div class="row pb-5 mb-4">
-            {% for i in glasses %}
-              <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+        <div class="row pb-5 mb-4">
+            {%for i in glasses%}
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                 <!-- Card-->
                 <div class="card rounded shadow-sm border-0" style="margin-bottom:10px;">
-                  <div class="card-body p-4"><img
-                    style="width: 100%;height: 15vw;object-fit: contain;"
-                    src="{{ i[5] }}" alt=""
-                    class="img-fluid d-block mx-auto mb-3">
-                    <h5><a href="/product/{{ i[0] }}" class="text-dark">{{ i[2] }}</a></h5>
-                    <p class="small text-muted font-italic">{{ i[7] }}</p>
-                    <ul class="list-inline small">
-                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                      <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i>
-                      </li>
-                    </ul>
-                  </div>
+                    <div class="card-body p-4" ><img style="width: 100%;height: 15vw;object-fit: contain;"
+                            src="{{ i[5] }}" alt=""
+                            class="img-fluid d-block mx-auto mb-3">
+                        <h5> <a href="/product/{{ i[0] }}" class="text-dark">{{ i[2] }}</a></h5>
+                        <p class="small text-muted font-italic">{{ i[7] }}</p>
+                        <ul class="list-inline small">
+                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                        </ul>
+                    </div>
                 </div>
-              </div>
-            {% endfor %}
-          </div>
-
-
+            </div>
+{%endfor%}
         </div>
-      </div>
-      </div>
-      </div>
-    </section>
-  </main>
-  <style>
-    footer > .container > .row {
-      flex-wrap: nowrap
-    }
-  </style>
-{% endblock %}
+
+
+
+    </div>
+</div>
+</div>
+</div>
+</section>
+    </main>
+    <style>
+   footer > .container > .row{flex-wrap: nowrap}
+    </style>
+   {% endblock %}

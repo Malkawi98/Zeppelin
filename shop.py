@@ -1,12 +1,14 @@
 from typing import List, Optional
+
+import databases
+import sqlalchemy
+from fastapi import FastAPI
 from fastapi import Request, Query, APIRouter
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import databases
-import sqlalchemy
-from sqlalchemy import and_
-from fastapi import FastAPI
 from pydantic import BaseModel
+from sqlalchemy import and_
+
 from services import check_token
 
 # SQLAlchemy specific code, as with any other app
@@ -119,9 +121,11 @@ async def activate_foreign_keys():
 
 
 @router.get("/shop/")
-async def shop(request: Request, page_num: Optional[int] = 1, brand: Optional[List[str]] = Query(None),
+async def shop(request: Request, page_num: Optional[int] = 1,
+               brand: Optional[List[str]] = Query(None),
                color: Optional[List[str]] = Query(None),
-               gender: Optional[List[str]] = Query(None), glass_type: Optional[List[str]] = Query(None),
+               gender: Optional[List[str]] = Query(None),
+               glass_type: Optional[List[str]] = Query(None),
                shape: Optional[List[str]] = Query(None)):
     token_status = check_token.get_token(request)
     flag, user_id, admin = False, None, False
@@ -148,7 +152,8 @@ async def shop(request: Request, page_num: Optional[int] = 1, brand: Optional[Li
         results = notes.select().offset(range_1).limit(range_2)
         result = await database.fetch_all(results)
     return templates.TemplateResponse('catalog-page.html',
-                                      {'request': request, 'query': result, 'brands': brands, 'colors': colors,
+                                      {'request': request, 'query': result, 'brands': brands,
+                                       'colors': colors,
                                        'shapes': shapes, 'flag': flag})
 
 
@@ -156,14 +161,15 @@ async def shop(request: Request, page_num: Optional[int] = 1, brand: Optional[Li
 async def add_glasses(request: Request, glass: Glass):
     foreign_keys = await activate_foreign_keys()
     print(glass)
-    add_item = notes.insert().values(name=glass.name, brand=glass.brand, gender=glass.gender, colors=glass.color,
-                                     shape=glass.shape, glasses_type=glass.shape, price=glass.price, image=glass.image)
+    add_item = notes.insert().values(name=glass.name, brand=glass.brand, gender=glass.gender,
+                                     colors=glass.color,
+                                     shape=glass.shape, glasses_type=glass.shape, price=glass.price,
+                                     image=glass.image)
     excec_add_item = await database.execute(add_item)
 
 
 @router.post('/modify')
 async def add_glasses(request: Request, glass: Glass):
-
     pass
 
 

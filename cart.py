@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+
 from shop import *
 
 app = FastAPI()
@@ -32,7 +33,8 @@ async def get_cart(request: Request):
     total_in_cart = sum(prices)
 
     return templates.TemplateResponse('shopping-cart.html',
-                                      {"request": request, 'items': excec_glasses_items, 'total': total_in_cart,
+                                      {"request": request, 'items': excec_glasses_items,
+                                       'total': total_in_cart,
                                        'flag': flag})
 
 
@@ -45,7 +47,8 @@ async def add_to_cart(request: Request, shop_cart: Cart):
         flag = True
         user_id = token_validity.get('user_id')
     activate_foreign_keys()
-    check_item_exists = cart.select().where(cart.c.user_id == user_id).where(cart.c.glasses_id == shop_cart.glasses_id)
+    check_item_exists = cart.select().where(cart.c.user_id == user_id).where(
+        cart.c.glasses_id == shop_cart.glasses_id)
     exec_item_exists = await database.fetch_one(check_item_exists)
     if exec_item_exists is not None:
         raise HTTPException(status_code=409, detail="Item already exists")

@@ -1,104 +1,109 @@
 {% extends 'base.html' %}
 {% block content %}
-<main class="page shopping-cart-page">
+  <main class="page shopping-cart-page">
 
     <section class="clean-block clean-cart dark">
-        <div class="container">
-            <div class="block-heading">
-                <h2 class="text-info">Shopping Cart</h2>
-            </div>
-            <div class="content">
-                {% if flag %}
+      <div class="container">
+        <div class="block-heading">
+          <h2 class="text-info">Shopping Cart</h2>
+        </div>
+        <div class="content">
+          {% if flag %}
 
-                <div class="row no-gutters">
-                    <div class="col-md-12 col-lg-8">
-                        {% if items %}
-                        <div class="items">
+            <div class="row no-gutters">
+              <div class="col-md-12 col-lg-8">
+                {% if items %}
+                  <div class="items">
 
-                            {% for item in items %}
-                            <div class="product">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-md-3">
-                                        <div class="product-image"><img class="img-fluid d-block mx-auto image"
-                                                src="{{ item[5] }}"></div>
-                                    </div>
+                    {% for item in items %}
+                      <div class="product">
+                        <div class="row justify-content-center align-items-center">
+                          <div class="col-md-3">
+                            <div class="product-image"><img class="img-fluid d-block mx-auto image"
+                                                            src="{{ item[5] }}"></div>
+                          </div>
 
-                                    <div class="col-md-5 product-info"><a class="product-name"
-                                            href="http://127.0.0.1:8000/product/{{ item[0] }}">{{ item[1] }}</a>
-                                        <div class="product-specs">
-                                            <div><span>Gender&nbsp;</span><span class="value">{{ item[3] }}</span></div>
-                                            <div><span>Color:&nbsp;</span><span class="value">{{ item[4] }}</span></div>
-                                            <div><span>Type&nbsp;</span><span class="value">{{ item[7] }}</span></div>
-                                        </div>
-                                    </div>
-                                    {# <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block"
+                          <div class="col-md-5 product-info"><a class="product-name"
+                                                                href="http://127.0.0.1:8000/product/{{ item[0] }}">{{ item[1] }}</a>
+                            <div class="product-specs">
+                              <div><span>Gender&nbsp;</span><span class="value">{{ item[3] }}</span>
+                              </div>
+                              <div><span>Color:&nbsp;</span><span class="value">{{ item[4] }}</span>
+                              </div>
+                              <div><span>Type&nbsp;</span><span class="value">{{ item[7] }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          {# <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block"
                                             for="quantity">Quantity</label><input type="number" id="number"
                                             class="form-control quantity-input" value="1"></div>#}
-                                    <div
-                                        class="col-6 col-md-2 price d-flex flex-column justify-content-center align-items-center">
-                                        <span>${{ item[8] }}</span>
-                                        <a onclick ='deleteItem(event)'class="delete">
-                                            <p class="text-danger h5 mt-2">Delete</p>
-                                        </a>
+                          <div
+                            class="col-6 col-md-2 price d-flex flex-column justify-content-center align-items-center">
+                            <span>${{ item[8] }}</span>
+                            <a onclick='deleteItem(event)' class="delete">
+                              <p class="text-danger h5 mt-2">Delete</p>
+                            </a>
 
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
+                          </div>
                         </div>
+                      </div>
+                    {% endfor %}
+                  </div>
 
+                  </div>
+                  <div class="col-md-12 col-lg-4">
+                    <div class="summary">
+                      <h3>Summary</h3>
+                      <h4><span class="text">Subtotal</span><span class="price">${{ total }}</span>
+                      </h4>
+                      <h4><span class="text">Discount</span><span class="price">$0</span></h4>
+                      <h4><span class="text">Shipping</span><span class="price">$0</span></h4>
+                      <h4><span class="text">Total</span><span class="price">${{ total }}</span>
+                      </h4>
+                      <button
+                        class="btn btn-primary btn-block btn-lg" type="button">Checkout
+                      </button>
                     </div>
-                    <div class="col-md-12 col-lg-4">
-                        <div class="summary">
-                            <h3>Summary</h3>
-                            <h4><span class="text">Subtotal</span><span class="price">${{ total }}</span></h4>
-                            <h4><span class="text">Discount</span><span class="price">$0</span></h4>
-                            <h4><span class="text">Shipping</span><span class="price">$0</span></h4>
-                            <h4><span class="text">Total</span><span class="price">${{ total }}</span></h4><button
-                                class="btn btn-primary btn-block btn-lg" type="button">Checkout</button>
-                        </div>
-                    </div>
-                </div>
+                  </div>
+                  </div>
                 {% else %}
-                <p class="text-center h2">No Item was Added</p>
+                  <p class="text-center h2">No Item was Added</p>
                 {% endif %}
-                {% else %}
-                <div class="block-heading">
-                    <p>Login To Add Items</p>
-                </div>
-
-                {% endif %}
-
+          {% else %}
+            <div class="block-heading">
+              <p>Login To Add Items</p>
             </div>
+
+          {% endif %}
+
         </div>
+      </div>
     </section>
-</main>
-<style>
+  </main>
+  <style>
     body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     footer {
-        margin-top: auto;
+      margin-top: auto;
     }
-</style>
+  </style>
 
-<script>
+  <script>
 
-  function deleteItem(event){
-      let item = document.querySelectorAll( '.delete' );
+    function deleteItem(event) {
+      let item = document.querySelectorAll('.delete');
 
-       let itemName = event.target.parentElement.parentElement.previousElementSibling.childNodes.item(0).firstChild.data
-        fetch(`/delete-from-cart/${itemName}`,{
-        }).then(response => response.json())
-      .then(()=>location.reload());
-
-
+      let itemName = event.target.parentElement.parentElement.previousElementSibling.childNodes.item(
+        0).firstChild.data
+      fetch(`/delete-from-cart/${itemName}`, {}).then(response => response.json())
+      .then(() => location.reload());
 
 
-  }
+    }
 
-</script>
+  </script>
 {% endblock %}

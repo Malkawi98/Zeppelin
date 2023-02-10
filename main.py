@@ -1,24 +1,24 @@
 import base64
+import json
 import shutil
 from typing import Optional
-import json
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi import Request, Body
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from sqlalchemy import and_
 from starlette.middleware.cors import CORSMiddleware
 
-from shop import notes
-import shop
-from fastapi import Request, Depends, Body
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
-from fastapi import FastAPI, File, UploadFile
+import cart
 import product
+import shop
+from cart import cart as cart_db
 from login import users
 from login.users import database
 from services import check_token
-import cart
-from cart import cart as cart_db
 from shop import notes
 
 app = FastAPI()
@@ -72,7 +72,8 @@ async def index(request: Request):
     glasses = await database.fetch_all(query=glasses)
 
     return templates.TemplateResponse("index.html",
-                                      {"request": request, 'glasses': glasses, 'flag': flag, 'admin': admin})
+                                      {"request": request, 'glasses': glasses, 'flag': flag,
+                                       'admin': admin})
 
 
 @app.get('/upload/')
@@ -127,7 +128,8 @@ async def delete_item(request: Request, item_id: str):
     get_id = notes.select().where(notes.c.name == item_id)
     excec_get_id = await database.fetch_one(get_id)
     print(excec_get_id)
-    remove_item = cart_db.delete().where(and_(cart_db.c.user_id == user_id, cart_db.c.glasses_id == excec_get_id[0]))
+    remove_item = cart_db.delete().where(
+        and_(cart_db.c.user_id == user_id, cart_db.c.glasses_id == excec_get_id[0]))
     excex_remove_item = await database.execute(remove_item)
     return 'success'
 
@@ -158,4 +160,6 @@ async def payment(request: Request):
     excec_glasses_items = await database.fetch_all(glasses_items)
     prices = [i[8] for i in excec_glasses_items]
     total_in_cart = sum(prices)
-    return templates.TemplateResponse('payment-page.html', {"request": request,'items': excec_glasses_items, 'flag': flag, 'sum': total_in_cart})
+    return templates.TemplateResponse('payment-page.html',
+                                      {"request": request, 'items': excec_glasses_items,
+                                       'flag': flag, 'sum': total_in_cart})
